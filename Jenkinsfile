@@ -44,14 +44,11 @@ pipeline {
             }
         }
         stage('Push image to ECR') {
-            when {
-                branch 'main'
-            }
             steps {
-                 withCredentials([
+                withCredentials([
                     string(credentialsId: 'AWS_ACCOUNT_ID', variable: 'AWS_ACCOUNT_ID')
                 ]) {
-                sh "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO}:${IMAGE_TAG}"
+                    sh "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO}:${IMAGE_TAG}"
                 }
             }
         }
