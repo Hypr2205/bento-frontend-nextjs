@@ -34,8 +34,8 @@ pipeline {
         stage('Build image') {
             steps {
                 sh """
-                    docker build -t ${ECR_REPOSITORY}:${IMAGE_TAG} .
-                    docker tag ${ECR_REPOSITORY}:${IMAGE_TAG} ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}:${IMAGE_TAG}
+                    docker build -t ${ECR_REPO}:${IMAGE_TAG} .
+                    docker tag ${ECR_REPO}:${IMAGE_TAG} ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO}:${IMAGE_TAG}
                 """
             }
         }
@@ -44,7 +44,7 @@ pipeline {
                 branch 'main'
             }
             steps {
-                sh "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}:${IMAGE_TAG}"
+                sh "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO}:${IMAGE_TAG}"
             }
         }
     }
