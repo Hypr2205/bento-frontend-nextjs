@@ -4,7 +4,7 @@ pipeline {
     }
 
     environment {
-        AWS_REGION = 'ap-southeats-1'
+        AWS_REGION = 'ap-southeast-1'
         ECR_REPO = 'bento-frontend'
         IMAGE_TAG = '${env.BUILD_NUMBER}'
     }
