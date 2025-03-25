@@ -31,6 +31,16 @@ pipeline {
                 checkout scm
             }
         }
+        stage('Snyk code scan') {
+            steps {
+                echo 'Code testing'
+                snykSecurity(
+                    snykInstallation: 'snyk@latest',
+                    snykTokeId: 'snyk',
+                    monitorProjectOnBuild: true
+                )
+            }
+        }
         stage('Build image') {
             steps {
                 withCredentials([
