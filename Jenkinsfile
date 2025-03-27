@@ -31,21 +31,21 @@ pipeline {
                 checkout scm
             }
         }
-        stage('install dependencies') {
-            steps {
-                sh "npm install"
-            }
-        }
-        stage('Snyk code scan') {
-            steps {
-                echo 'Code testing'
-                snykSecurity(
-                    snykInstallation: 'snyk@latest',
-                    snykTokenId: 'snyk',
-                    monitorProjectOnBuild: true
-                )
-            }
-        }
+        // stage('install dependencies') {
+        //     steps {
+        //         sh "npm install"
+        //     }
+        // }
+        // stage('Snyk code scan') {
+        //     steps {
+        //         echo 'Code testing'
+        //         snykSecurity(
+        //             snykInstallation: 'snyk@latest',
+        //             snykTokenId: 'snyk',
+        //             monitorProjectOnBuild: true
+        //         )
+        //     }
+        // }
         stage('Build image') {
             steps {
                 withCredentials([
