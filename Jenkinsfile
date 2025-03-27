@@ -31,6 +31,11 @@ pipeline {
                 checkout scm
             }
         }
+        stage('install dependencies') {
+            steps {
+                sh "npm install"
+            }
+        }
         stage('Snyk code scan') {
             steps {
                 echo 'Code testing'
