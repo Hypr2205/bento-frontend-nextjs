@@ -70,7 +70,9 @@ pipeline {
         }
         stage('Update k8s deployment spec') {
             steps {
-                script {
+                withCredentials([
+                    string(credentialsId: 'AWS_ACCOUNT_ID', variable: 'AWS_ACCOUNT_ID')
+                ]) {
                     sh """
                         rm -rf ${MANIFEST_DIR}
                         git clone -b ${MANIFEST_BRANCH} ${MANIFEST_REPO} ${MANIFEST_DIR}
