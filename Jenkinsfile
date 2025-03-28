@@ -81,6 +81,9 @@ pipeline {
                         rm -rf ${MANIFEST_DIR}
                         git clone -b ${MANIFEST_BRANCH} ${MANIFEST_REPO} ${MANIFEST_DIR}
                         cd ${MANIFEST_DIR}
+                        git config user.name "Hypr2205"
+                        git config user.email "procango2003@gmail.com"
+                        git config --list
                         sed -i 's|image: .*bento-frontend:.*|image: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO}:${IMAGE_TAG}|' ./frontend/deployment.yml
                         git add .
                         git commit -m 'Update deployment image to ${IMAGE_TAG}'
