@@ -86,6 +86,7 @@ pipeline {
                         cd ${MANIFEST_DIR}
                         sed -i 's|image: .*bento-frontend:.*|image: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO}:${IMAGE_TAG}|' ./frontend/deployment.yml
                         git add .
+                        git config credential.helper '!f() { echo "username=$GIT_USERNAME"; echo "password=$GIT_PASSWORD"; }; f'
                         git commit -m 'Update deployment image to ${IMAGE_TAG}'
                         git push -u origin ${MANIFEST_BRANCH}
                     """
