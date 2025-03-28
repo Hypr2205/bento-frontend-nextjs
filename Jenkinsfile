@@ -80,7 +80,7 @@ pipeline {
                         sed -i 's|image: .*bento-frontend:.*|image: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO}:${IMAGE_TAG}|' ./frontend/deployment.yml
                         git add .
                         git commit -m 'Update deployment image to ${IMAGE_TAG}'
-                        git push origin ${MANIFEST_BRANCH}
+                        git push -u origin ${MANIFEST_BRANCH}
                     """
                 }
             }
