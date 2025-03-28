@@ -1,12 +1,13 @@
 pipeline {
-    agent {
-        label 'pipeline'
-    }
+    agent any
 
     environment {
         AWS_REGION = 'ap-southeast-1'
         ECR_REPO = 'bento-frontend'
         IMAGE_TAG = "${env.BUILD_NUMBER}"
+        MANIFEST_REPO = 'https://github.com/Hypr2205/bento-frontend-manifest.git'
+        MANIFEST_BRANCH = 'main'
+        MANIFEST_DIR = 'k8s'
     }
     
     stages {
@@ -64,6 +65,21 @@ pipeline {
                     string(credentialsId: 'AWS_ACCOUNT_ID', variable: 'AWS_ACCOUNT_ID')
                 ]) {
                     sh "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO}:${IMAGE_TAG}"
+                }
+            }
+        }
+        stage('Update k8s deployment spec') {
+            steps {
+                script {
+                    sh """
+                        rm -rf ${MANIFEST_DIR}
+                        git clone -b ${MANIFEST_BRANCH} ${MANIFEST_REPO} ${MANIFEST_DIR}
+                        cd ${MANIFEST_DIR}
+                        sed -i 's|image: .*bento-frontend:.*|image: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPO}:${IMAGE_TAG}|' frontend/deployment.yaml
+                        git add .
+                        git commit -m 'Update deployment image to ${IMAGE_TAG}'
+                        git push origin ${MANIFEST_BRANCH}
+                    """
                 }
             }
         }
