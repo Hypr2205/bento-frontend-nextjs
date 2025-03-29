@@ -97,7 +97,7 @@ export default function RegisterView() {
         <div className="relative z-[2]">
           <div className="flex flex-col mb-[2.5rem] items-center gap-6">
             <Typography level="h4" className="text-primary">
-              Bento social
+               Social
             </Typography>
           </div>
           <form onSubmit={handleRegister}>
