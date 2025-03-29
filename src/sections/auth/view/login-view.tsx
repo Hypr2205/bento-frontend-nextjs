@@ -80,7 +80,6 @@ export default function LoginView() {
         <div className="w-full p-[2.5rem] relative mx-auto md:max-w-[25.5rem] md:before:content-[''] md:before:absolute md:before:inset-0 md:before:rounded-button md:before:pointer-events-none md:before:border-[0.75rem] md:before:border-[#f7f7f780] md:before:opacity-[0.29] md:before:blur-[20px] md:before:bg-auth-form md:after:bg-[#363638] md:after:shadow-auth-card md:after:backdrop:blur-[50px] md:after:content-[''] md:after:absolute md:after:inset-0 md:after:rounded-button md:after:pointer-events-none">
           <div className="relative z-[2]">
             <div className="flex flex-col mb-[2.5rem] items-center gap-6">
-              {/* <LogoSVG className="object-contain w-[150px]" /> */}
 
               <Typography level="h4" className="text-primary">
                 Sign in to Social
