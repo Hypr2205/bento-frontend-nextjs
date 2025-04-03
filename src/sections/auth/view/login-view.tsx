@@ -82,7 +82,7 @@ export default function LoginView() {
             <div className="flex flex-col mb-[2.5rem] items-center gap-6">
 
               <Typography level="h4" className="text-primary">
-                Sign in to Social
+                Dang Nhap
               </Typography>
             </div>
             <form onSubmit={handleLogin}>
