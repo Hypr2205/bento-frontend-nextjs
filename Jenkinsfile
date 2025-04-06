@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         AWS_REGION = 'ap-southeast-1'
-        ECR_REPO = 'bento-frontend'
+        ECR_REPO = 'pipeline'
         IMAGE_TAG = "${env.BUILD_NUMBER}"
         MANIFEST_REPO = 'https://github.com/Hypr2205/bento-frontend-manifest.git'
         MANIFEST_BRANCH = 'main'
@@ -34,21 +34,6 @@ pipeline {
                 checkout scm
             }
         }
-        // stage('install dependencies') {
-        //     steps {
-        //         sh "npm install"
-        //     }
-        // }
-        // stage('Snyk code scan') {
-        //     steps {
-        //         echo 'Code testing'
-        //         snykSecurity(
-        //             snykInstallation: 'snyk@latest',
-        //             snykTokenId: 'snyk',
-        //             monitorProjectOnBuild: true
-        //         )
-        //     }
-        // }
         stage('Build image') {
             steps {
                 withCredentials([
@@ -74,7 +59,7 @@ pipeline {
             steps {
                 withCredentials([
                     string(credentialsId: 'AWS_ACCOUNT_ID', variable: 'AWS_ACCOUNT_ID'),
-                    usernamePassword(credentialsId: 'github-id', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')
+                    usernamePassword(credentialsId: 'github-cred', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')
                 ]) {
                     sh """
                         git config --global user.name "${GIT_USERNAME}"
